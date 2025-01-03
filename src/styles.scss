@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+.image {
+  background-color: rgba(9, 9, 9, 0.7); /* Color con opacidad */
+  background-image: url("./assets/images/lightBack.png");
+  background-repeat: no-repeat;
+  background-size: cover; /* Asegura que la imagen cubra todo el div */
+  background-position: center; /* Centra la imagen en el div */
+  border-radius: 0.5rem; /* Mantiene el radio de los bordes */
+}
+
+.custom-scroll {
+  overflow-anchor: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.3) transparent;
+  -webkit-overflow-scrolling: touch;
+  overflow-anchor: none;
+}
+
+.custom-vertical-scroll::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}

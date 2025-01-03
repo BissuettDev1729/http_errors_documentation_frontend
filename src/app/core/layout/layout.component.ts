@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// Core components
+
 import { HeaderComponent } from '../components/header/header.component';
 import { SidebarComponent } from '../components/sidebar/sidebar.component';
 import { LoadingPageComponent } from '../components/loading-page/loading-page.component';
-// Signals
+
 import { SignalsService } from '../../shared/services/signals.service';
 import { RouterModule } from '@angular/router';
 
@@ -18,8 +18,7 @@ import { RouterModule } from '@angular/router';
     SidebarComponent,
     LoadingPageComponent
   ],
-  templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss'
+  templateUrl: './layout.component.html'
 })
 export class LayoutComponent {
 

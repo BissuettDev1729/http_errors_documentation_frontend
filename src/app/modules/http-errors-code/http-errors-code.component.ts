@@ -10,23 +10,19 @@ import { FormsModule } from '@angular/forms';
     CommonModule, 
     FormsModule
   ],
-  templateUrl: './http-errors-code.component.html',
-  styleUrl: './http-errors-code.component.scss'
+  templateUrl: './http-errors-code.component.html'
 })
 export class HttpErrorsCodeComponent implements OnInit {
 
   private signals$ = inject(SignalsService)
-  
+
+  public  selectedTab: string = 'estado';
   public statusCodesData: any[] = [];
   public statusCodesDataClone: any[] = [];
   public searchText: string = '';
 
   constructor() {
-    effect(() => {
-      // this.signals$.menuSelected$()
-      // console.log('this.signals$.menuSelected$():', this.signals$.menuSelected$());
-      this.getDataFromHttpResponses()
-    });
+    effect(() => { this.getDataFromHttpResponses() });
   }
 
   private readonly menuMapping: Record<string, () => any[]> = {
@@ -57,6 +53,10 @@ export class HttpErrorsCodeComponent implements OnInit {
     if (this.statusCodesDataClone.length === 0 && search !== '') {
       this.statusCodesDataClone = this.statusCodesData;
     }
+  }
+
+  public changeTab(index: number, tab: string) {
+    this.statusCodesDataClone[index].activeTab = tab;
   }
 
   ngOnInit(): void {

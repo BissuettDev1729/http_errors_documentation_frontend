@@ -1,4 +1,4 @@
-<section class="w-full h-full flex flex-col gap-2 overflow-y-auto">
+<section class="w-full h-full flex flex-col gap-2 overflow-y-auto custom-scroll custom-vertical-scroll">
     <section class="px-4 w-full flex justify-start">
         <div class="flex items-center gap-2 bg-[#1A1A1A] border border-[#262626] px-2 rounded-lg">
             <svg class="text-white/70" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
@@ -14,11 +14,60 @@
                     <span [style.background]="statusCode.color" class="px-3 py-1 rounded-xl text-base text-white/70">{{statusCode.type}}</span>
                 </div>
                 <div>
-                    <span class="text-white font-medium text-lg text-wrap px-3 py-2">{{statusCode.message}}</span>
+                    <span class="text-white/90 font-medium text-lg text-wrap px-3 py-2">{{statusCode.message}}</span>
                 </div>
-                <div>
-                    <pre class="text-white text-sm text-wrap px-3 py-2">{{statusCode.description}}</pre>
+                <div class="border-b border-b-[#292929]">
+                    <pre class="text-white/80 text-xs text-wrap px-3 py-2">{{statusCode.description}}</pre>
                 </div>
+
+                <div class="flex items-center gap-2 px-2 overflow-y-auto custom-scroll">
+                    <button [ngClass]="{ 'border-b border-b-primary': statusCode.activeTab === 'state' }" (click)="changeTab($index, 'state')"  class="flex items-center gap-2 text-white/80 hover:text-primary px-2 py-1">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.54 7c-.805 -2.365 -2.536 -4 -4.54 -4c-2.774 0 -5.023 2.632 -5.023 6.496c0 1.956 1.582 4.727 2.512 6" /><path d="M4.711 11.979c-1.656 1.877 -2.214 4.185 -1.211 5.911c1.387 2.39 5.138 2.831 8.501 .9c1.703 -.979 2.875 -3.362 3.516 -4.798" /><path d="M15.014 19.99c2.511 0 4.523 -.438 5.487 -2.1c1.387 -2.39 -.215 -5.893 -3.579 -7.824c-1.702 -.979 -4.357 -1.235 -5.927 -1.07" /><path d="M10.493 9.862c.48 .276 1.095 .112 1.372 -.366a1 1 0 0 0 -.367 -1.365a1.007 1.007 0 0 0 -1.373 .366a1 1 0 0 0 .368 1.365z" /><path d="M9.5 15.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M15.5 14m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
+                        Estado
+                    </button>
+                    @if (statusCode.withExample) {
+                        <button [ngClass]="{ 'border-b border-b-primary': statusCode.activeTab === 'example' }" (click)="changeTab($index, 'example')"  class="flex items-center gap-2 text-white/80 hover:text-primary px-2 py-1">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 8l-4 4l4 4" /><path d="M17 8l4 4l-4 4" /><path d="M14 4l-4 16" /></svg>
+                            Ejemplo
+                        </button>
+                    }
+                    <button [ngClass]="{ 'border-b border-b-primary': statusCode.activeTab === 'resource' }" (click)="changeTab($index, 'resource')"  class="flex items-center gap-2 text-white/80 hover:text-primary px-2 py-1">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 22v-2" /><path d="M9 15l6 -6" /><path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" /><path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" /><path d="M20 17h2" /><path d="M2 7h2" /><path d="M7 2v2" /></svg>
+                        Recursos
+                    </button>
+                </div>
+
+                @if (statusCode.activeTab === 'state') {
+                    <div class="p-4 text-white">
+                        <div class="flex flex-col bg-[#252525] rounded-lg p-2">
+                            <span class="text-sm border-b border-b-[#494949] py-1 px-2">HTTP</span>
+                            <span class="p-2 text-xs">{{ statusCode.status }}</span>
+                        </div>
+                    </div>
+                }
+                @if (statusCode.withExample && statusCode.activeTab === 'example') {
+                    <div class="flex flex-col gap-2 p-4 text-white">
+                        <div class="flex flex-col bg-[#252525] rounded-lg p-2">
+                            <span class="text-sm border-b border-b-[#494949] py-1 px-2">HTTP - request</span>
+                            <pre class="p-2 text-xs">{{ statusCode.example }}</pre>
+                        </div>
+                        <div class="flex flex-col bg-[#252525] rounded-lg p-2">
+                            <span class="text-sm border-b border-b-[#494949] py-1 px-2">HTTP - response</span>
+                            <pre class="p-2 text-xs">{{ statusCode.exampleResponse }}</pre>
+                        </div>
+                    </div>
+                }
+                @if (statusCode.activeTab === 'resource') {
+                    <div class="flex flex-col gap-2 p-4 text-white w-full text-xs">
+                        @for (resource of statusCode.resources; track $index) {
+                            <div class="flex items-center gap-2 bg-[#252525] rounded-lg p-2 hover:text-primary">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 22v-2" /><path d="M9 15l6 -6" /><path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464" /><path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463" /><path d="M20 17h2" /><path d="M2 7h2" /><path d="M7 2v2" /></svg>
+                                <a [href]="resource.url" target="_blank" class="text-wrap">{{resource.name}}</a>
+                            </div>
+                        }
+                    </div>
+                }
+
             </div>
         }
     </section>
