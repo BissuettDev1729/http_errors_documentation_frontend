@@ -1,0 +1,9 @@
+.image {
+    background-color: rgba(9, 9, 9, 0.7); /* Color con opacidad */
+    background-image: url('../../../assets/images/lightBack.png');
+    background-repeat: no-repeat;
+    background-size: cover; /* Asegura que la imagen cubra todo el div */
+    background-position: center; /* Centra la imagen en el div */
+    border-radius: 0.5rem; /* Mantiene el radio de los bordes */
+}
+

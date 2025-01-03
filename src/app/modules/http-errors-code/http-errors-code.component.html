@@ -1,0 +1,25 @@
+<section class="w-full h-full flex flex-col gap-2 overflow-y-auto">
+    <section class="px-4 w-full flex justify-start">
+        <div class="flex items-center gap-2 bg-[#1A1A1A] border border-[#262626] px-2 rounded-lg">
+            <svg class="text-white/70" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+            <input [(ngModel)]="searchText" (keyup)="filteredData(searchText)" class="bg-transparent outline-none h-full py-2 text-white/70" type="text" placeholder="Buscar...">
+        </div>
+    </section>
+
+    <section class="w-full grid grid-cols-1 md:grid-cols-3 gap-2 p-4">
+        @for (statusCode of statusCodesDataClone; track $index) {
+            <div class="col-span-1 image"> 
+                <div class="flex items-center justify-between px-3 py-2">
+                    <span class="text-white/80 text-4xl font-medium">{{statusCode.code}}</span>
+                    <span [style.background]="statusCode.color" class="px-3 py-1 rounded-xl text-base text-white/70">{{statusCode.type}}</span>
+                </div>
+                <div>
+                    <span class="text-white font-medium text-lg text-wrap px-3 py-2">{{statusCode.message}}</span>
+                </div>
+                <div>
+                    <pre class="text-white text-sm text-wrap px-3 py-2">{{statusCode.description}}</pre>
+                </div>
+            </div>
+        }
+    </section>
+</section>

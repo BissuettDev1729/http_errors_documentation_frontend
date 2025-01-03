@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+// Signals
+import { SignalsService } from './shared/services/signals.service';
+
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  template: `<router-outlet></router-outlet>`
 })
 export class AppComponent {
-  title = 'http_errors_documentation_frontend';
+  private _signals = inject(SignalsService)
+
+  constructor() {
+    this._signals.setThemeDark(localStorage.getItem('isThemeDark') === 'yes')
+  }
 }

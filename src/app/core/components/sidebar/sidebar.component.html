@@ -1,0 +1,31 @@
+<aside 
+class="absolute bg-layout z-50 w-64 h-full px-2 transition-[left] duration-300 shadow-shadowSide flex flex-col justify-between"
+[ngClass]="_signals.openSidebar$() ? 'left-0' : '-left-64'">
+
+  <section class="flex flex-col">
+    <div class="h-16 w-full flex items-center justify-center gap-2">
+      <span class="tracking-widest font-medium select-none text-center text-white text-sm">HTTP RESPONSE STATUS CODES</span>
+    </div>
+
+    <div class="flex flex-col gap-2 py-2">
+      @for (menu of menus; track $index) {
+        <button (click)="_signals.setMenuSelected(menu.menu)" [routerLink]="menu.url" routerLinkActive="bg-[#CAFF33] !text-black shadow-menuActive" class="flex items-center text-sm p-2 select-none rounded-lg text-white/80 hover:text-[#CAFF33] gap-2" routerLink="profile">
+          <span>{{ menu.label }}</span>
+        </button>
+      }
+    </div>
+
+  </section>
+
+  <section class="flex flex-col gap-6 items-center justify-center w-full py-2">
+
+    <div class="p-4 bg-[#303030] rounded-lg text-white/80">
+      <span class="text-[#CAFF33]">¿Sabías que?</span>
+      <p class="text-sm">Los códigos de error 4xx indican errores del cliente, mientras que los 5xx indican problemas del servidor.</p>
+    </div>
+
+
+    <span class="text-xs text-center text-white/80">© 2025 HTTP RESPONSE STATUS CODES.</span>
+  </section>
+
+</aside>
